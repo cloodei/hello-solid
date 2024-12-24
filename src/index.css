@@ -14,3 +14,19 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+@keyframes color-change {
+  0% {
+    color: #5a5cff;
+  }
+  50% {
+    color: #44c4eb;
+  }
+  100% {
+    color: #5a5cff;
+  }
+}
+
+.color-changer {
+  animation: color-change 2s infinite 
+}

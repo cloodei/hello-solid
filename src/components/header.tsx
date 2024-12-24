@@ -1,29 +1,32 @@
-import { JSX, splitProps } from "solid-js";
-import { children } from "solid-js";
+import { A, useLocation } from "@solidjs/router";
 import { Github } from "lucide-solid";
-import { twMerge } from "tailwind-merge";
 
-export type HeaderProps = JSX.HTMLAttributes<HTMLElement> & {
-  children?: JSX.Element
-  class?: string
-};
+export default function Header() {
+  const location = useLocation();
 
-export default function Header(props: HeaderProps) {
-  const [c, rest] = splitProps(props, ["class"]);
-  const cd = children(() => props?.children);
+  const isActive = (path: string) => location.pathname === path ? "text-blue-400 underline" : "text-blue-600 hover:text-blue-400/85";
 
   return (
-    <header
-      class={twMerge("flex justify-between items-center h-12 px-9 bg-gray-800 text-white", c.class)}
-      {...rest}
-    >
-      <a class="flex items-center" href="/">
-        <Github class="w-6 h-6 ml-2" />
-        <h1 class="text-2xl tracking-tight font-bold ml-2">SolidJS</h1>
-      </a>
-      <div class="flex items-center">
-        {cd()}
-      </div>
+    <header class="flex justify-between items-center h-12 px-9 bg-gray-800">
+      <section class="flex items-center gap-7">
+        <div class="flex items-center">
+          <Github class="w-6 h-6 ml-2 text-white" />
+          <A class={`text-2xl tracking-tight font-bold ml-2 ${location.pathname === "/" ? "color-changer" : "text-gray-100"}`} href="/">
+            SolidToDo
+          </A>
+        </div>
+        <div class="flex items-center gap-3">
+          <A href="/create" class={"transition duration-200 " + isActive("/create")}>
+            Create
+          </A>
+          <A href="/r2" class={"transition duration-200 " + isActive("/r2")}>
+            Route 2
+          </A>
+          <A href="/r3" class={"transition duration-200 " + isActive("/r3")}>
+            Route 3
+          </A>
+        </div>
+      </section>
     </header>
   );
 }
