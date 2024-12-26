@@ -1,14 +1,39 @@
+import { DOMElement } from "solid-js/jsx-runtime";
+import { useToast } from "../store/use-toast";
+import { createSignal, For } from "solid-js";
 import Button from "../components/button";
-import { createSignal, For, Index } from "solid-js";
+
+export type SubmitEvent = globalThis.SubmitEvent & {
+  currentTarget: HTMLFormElement
+  target: DOMElement
+};
+
+export type ChangeEvent = Event & {
+  currentTarget: HTMLInputElement | HTMLTextAreaElement
+  target: HTMLInputElement | HTMLTextAreaElement
+};
+
+type ToDo = {
+  title: string,
+  description: string
+};
 
 export default function CreateToDo() {
-  const [form, setForm] = createSignal<{ title: string, description: string }>({ title: "", description: "" });
-  const [todos, setTodos] = createSignal<{ title: string, description: string }[]>([]);
+  const [form, setForm] = createSignal<ToDo>({ title: "", description: "" });
+  const [todos, setTodos] = createSignal<ToDo[]>([]);
+  const { addToast } = useToast();
 
-  const handleSubmit = (e: Event) => {
+  const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
     console.log(form());
+    const title = form().title.trim();
+    const description = form().description.trim();
+    if(!title || !description) {
+      addToast({ message: "Title and Description are required", type: "error" });
+      return;
+    }
     setTodos([...todos(), form()]);
+    addToast({ message: "Task created successfully", type: "success" });
     setForm({ title: "", description: "" });
   };
 
