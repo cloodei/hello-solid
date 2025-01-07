@@ -4,12 +4,12 @@ import './index.css';
 import App from './App';
 import Home from './pages/home';
 import CreateToDo from './pages/create';
+import BrowseToDos from './pages/browse';
 
 render(() => (
   <Router root={App}>
     <Route path="/" component={Home} />
     <Route path="/create" component={CreateToDo} />
-    <Route path="/r2" component={undefined} />
-    <Route path="/r3" component={undefined} />
+    <Route path="/browse" component={BrowseToDos} />
   </Router>
 ), document.getElementById('root')!);

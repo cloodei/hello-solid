@@ -1,5 +1,6 @@
 import { A, useLocation } from "@solidjs/router";
 import { Github } from "lucide-solid";
+import ThemeToggle from "./theme-toggle";
 
 export default function Header() {
   const location = useLocation();
@@ -19,13 +20,14 @@ export default function Header() {
           <A href="/create" class={"transition duration-200 " + isActive("/create")}>
             Create
           </A>
-          <A href="/r2" class={"transition duration-200 " + isActive("/r2")}>
-            Route 2
+          <A href="/browse" class={"transition duration-200 " + isActive("/r2")}>
+            Browse
           </A>
           <A href="/r3" class={"transition duration-200 " + isActive("/r3")}>
             Route 3
           </A>
         </div>
+        <ThemeToggle />
       </section>
     </header>
   );

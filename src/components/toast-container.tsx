@@ -6,7 +6,7 @@ export default function ToastContainer() {
   const { toasts, removeToast } = useToast();
 
   return (
-    <div class="fixed top-0 right-0 z-50">
+    <div class="fixed top-4 right-4 z-50 flex flex-col gap-3">
       <For each={toasts()}>
         {(toast) => (
           <Toast
